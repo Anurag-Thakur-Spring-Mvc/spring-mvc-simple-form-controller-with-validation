@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Controller -->
+	<bean class="com.code2java.redbus.controller.AddJourneyFormController"
+		id="addJourneyFormController">
+		<property name="commandClass" value="com.code2java.redbus.command.JourneyCommand" />
+		<property name="commandName" value="journey" />
+		<property name="formView" value="add-journey" />
+		<property name="validator" ref="journeyCommandValidator" />
+	</bean>
+	<bean class="org.springframework.web.servlet.mvc.UrlFilenameViewController"
+		id="urlFilenameViewController" />
+	<!-- Controller -->
+
+	<!-- View Resolver -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<!-- View Resolver -->
+
+	<!-- Handler Mapping -->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/index.htm">urlFilenameViewController</prop>
+				<prop key="/add-journey.htm">addJourneyFormController</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- Handler Mapping -->
+
+	<!-- Validator -->
+	<bean class="com.code2java.redbus.command.JourneyCommandValidator"
+		id="journeyCommandValidator" />
+	<!-- Validator -->
+
+	<!-- internationalization - message bundle resource -->
+	<bean class="org.springframework.context.support.ResourceBundleMessageSource"
+		id="messageSource">
+		<property name="basename" value="errors" />
+	</bean>
+	<!-- internationalization - message bundle resource -->
+
+</beans>
